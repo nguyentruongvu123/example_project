@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:myshop/models/product.dart';
 import 'ui/products/product_detail_screen.dart';
 import 'ui/products/products_manager.dart';
-// import 'ui/products/product_overview_screen.dart';
+import 'ui/products/product_overview_screen.dart';
 // import 'ui/products/user_products_screen.dart';
 
 void main() {
@@ -25,10 +25,8 @@ class MyApp extends StatelessWidget {
           secondary: Colors.deepOrange,
         ),
       ),
-      home: SafeArea(
-        child: ProductDetailScreen(
-            ProductsManager().items[0],
-        ),
+      home: const SafeArea(
+        child: ProductsOverviewScreen(),
       ),
     );
   }
