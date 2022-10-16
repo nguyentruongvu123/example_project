@@ -19,7 +19,7 @@ class ProductGridTile extends StatelessWidget {
         footer: buildGridFooterBar(context),
         child: GestureDetector(
           onTap: () {
-              Navigator.of(context).pushNamed(
+            Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
               arguments: product.id,
             );
@@ -36,13 +36,18 @@ class ProductGridTile extends StatelessWidget {
   Widget buildGridFooterBar(BuildContext context) {
     return GridTileBar(
       backgroundColor: Colors.black87,
-      leading: IconButton(
-        icon: Icon(
-          product.isFavorite ? Icons.favorite : Icons.favorite_border,
-        ),
-        color: Theme.of(context).colorScheme.secondary,
-        onPressed: () {
-          print('Toggle a favorite product');
+      leading: ValueListenableBuilder<bool>(
+        valueListenable: product.isFavoriteListenable,
+        builder: (ctx, isFavorite, child) {
+          return IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+            ),
+            color: Theme.of(context).colorScheme.secondary,
+            onPressed: () {
+              product.isFavorite = !isFavorite;
+            },
+          );
         },
       ),
       title: Text(
