@@ -3,7 +3,7 @@ import 'package:myshop/models/product.dart';
 import 'package:provider/provider.dart';
 
 import 'ui/products/products_manager.dart';
-
+import 'ui/orders/order_manager.dart';
 import 'ui/cart/cart_manager.dart';
 import 'ui/screen.dart';
 
@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => CartManager(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => OrdersManager(),
         ),
       ],
       child: MaterialApp(
