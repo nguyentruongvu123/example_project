@@ -6,23 +6,26 @@ import 'products_manager.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
+
   EditProductScreen(
     Product? product, {
-    super.key,
+      super.key,
   }) {
     if (product == null) {
       this.product = Product(
-        id: null,
-        title: '',
-        price: 0,
-        description: '',
-        imageUrl: '',
+      id: null,
+      title: '',
+      price: 0,
+      description: '',
+      imageUrl: '',
       );
     } else {
       this.product = product;
     }
   }
+
   late final Product product;
+
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
 }
@@ -35,7 +38,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   var _isLoading = false;
 
   bool _isValidImageUrl(String value) {
-    return value.startsWith('https') &&
+     return value.startsWith('https') &&
         (value.endsWith('.png') ||
             value.endsWith('jpg') ||
             value.endsWith('.jpeg'));
@@ -56,7 +59,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlController.text = _editedProduct.imageUrl;
     super.initState();
   }
-
   @override
   void dispose() {
     _imageUrlController.dispose();
@@ -65,7 +67,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   Future<void> _saveForm() async {
-    final isValid = _editForm.currentState!.validate();
+        final isValid = _editForm.currentState!.validate();
     if (!isValid) {
       return;
     }
@@ -76,9 +78,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
     try {
       final productsManager = context.read<ProductsManager>();
       if (_editedProduct.id != null) {
-        productsManager.updateProduct(_editedProduct);
+        await productsManager.updateProduct(_editedProduct);
       } else {
-        productsManager.addProduct(_editedProduct);
+        await productsManager.addProduct(_editedProduct);
       }
     } catch (error) {
       await showErrorDialog(context, 'Something went wrong.');
@@ -90,10 +92,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
       Navigator.of(context).pop();
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+        return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Product'),
         actions: <Widget>[
